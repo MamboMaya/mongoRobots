@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <nav><a href="/">All Users</a></nav>
+
+    <div class="indexContainer">
+      {{#users}}
+      <div class="box">
+        <img src="{{avatar}}" alt="">
+        <div class="name">{{name}}</div><br>
+        <div class="jobco">{{job}}: {{jobless}} {{company}}</div>
+
+      </div>
+      {{/users}}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <nav><a href="/">All Users</a></nav>
+    <div class="userContainer">
+      {{#users}}
+      <div class="top-row">
+        <img src="{{avatar}}" alt="">
+        <h1>{{name}}</h1><br>
+        <p>{{city}}, {{country}} | {{job}}, {{company}}</p><br>
+        <p>{{email}} | {{phone}}</p>
+
+      </div>
+      {{/users}}
+    </div>
+  </body>
+</html>
