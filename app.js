@@ -1,51 +1,79 @@
-const data = require('./public/data.js')
+const MongoClient = require('mongodb').MongoClient
+  , assert = require('assert')
+const url = 'mongodb://localhost:27017/robots'
 const express = require('express');
 const path = require('path');
-const mustacheExpress = require('mustache-express');
+const mustache = require('mustache-express');
 const app = express();
-
 
 app.use(express.static('public'))
 
-app.engine('mustache', mustacheExpress());
-app.set('views', './views')
+app.engine('mustache', mustache());
 app.set('view engine', 'mustache')
 app.listen(3000, function(){
-  console.log("GOOD TO GO!!");
+  console.log("GOOD TO GO!!")
 })
 
-const users = data.users
+// const router = require('./routes')
 
-for (var i = 0; i < users.length; i++) {
-  var id = users[i].id
-  var name = users[i].name
-  var avatar = users[i].avatar
-  var company = users[i].company
-  var job = users[i].job
-  var city = users[i].address.city
-  var country = users[i].address.country
-  var email = users[i].email
-  var phone = users[i].phone
-  var university = users[i].university
-  var skills = users[i].skills
-}
-
-
+// app.use('/', router)
+// app.use('/user/:id', router)
 app.get('/', function(req, res){
-res.render('index', {users :users})
-})
 
+MongoClient.connect(url, function(err, db) {
+  if (err) {
+    throw err
+  } else {
+    console.log('Successfully connected to the database')
+  }
+  // const data = require("./data");
+  // for (var i = 0; i < data.users.length; i++) {
+    // const user = data.users[i];
+    db.collection('users')
+      .find()
+      .limit(20)
+      .toArray( function(err, robots){
 
-app.get('/user/:id', function(req, res){
+        // console.log(robots);
 
-// res.send(req.params)
-res.render('user', {users :users})
+        res.render('index', {
+          users: robots
+        })
+        })
+    })
+
 })
 
 app.get('/unemployed', function(req, res){
-res.render('unemployed')
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      throw err
+    } else {
+      console.log('Successfully connected to the database');
+    }
+  db.collection('users')
+  .find({ job: null})
+  .toArray(function(err, robots){
+    res.render('unemployed', {
+      users: robots
+    })
+  })
+})
 })
 
-app.get('/nodata', function(req, res){
-res.render('nodata')
+app.get('/employed', function(req, res){
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      throw err
+    } else {
+      console.log('Successfully connected to the database');
+    }
+    db.collection('users')
+      .find({job: {$exists: true}})
+      .toArray(function(err, robots){
+        res.render('employed', {
+            users: robots
+          })
+        })
+      })
 })

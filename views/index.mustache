@@ -6,14 +6,18 @@
     <title></title>
   </head>
   <body>
-    <nav><a href="/">All Users</a></nav>
+    <nav>
+      <a href="/">All Users</a>
+      <a href="/unemployed">Unemployed</a>
+      <a href="/employed">Employed</a>
+    </nav>
 
     <div class="indexContainer">
       {{#users}}
-      <div class="box">
+      <div class="robot">
         <img src="{{avatar}}" alt="">
-        <div class="name">{{name}}</div><br>
-        <div class="jobco">{{job}}: {{jobless}} {{company}}</div>
+        <h3>{{name}}</h3>
+        <p>{{job}}</p>
 
       </div>
       {{/users}}

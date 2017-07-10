@@ -6,7 +6,17 @@
     <title></title>
   </head>
   <body>
-    <nav><a href="/">All Users</a></nav>
-    Unemployed page bruh
+    <nav>
+      <a href="/">All Users</a>
+      <a href="/unemployed">Unemployed</a>
+      <a href="/employed">Employed</a>
+    </nav>
+    <h1>Unemployed Robots</h1>
+     <div class="">
+       {{#users}}
+       <li>{{name}}</li>
+       {{/users}}       
+     </div>
+
   </body>
 </html>
