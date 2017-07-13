@@ -1,23 +1,27 @@
+const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient
   , assert = require('assert')
+
 const url = 'mongodb://localhost:27017/robots'
 const express = require('express');
 const path = require('path');
 const mustache = require('mustache-express');
 const app = express();
+const mongoURL = process.env.MONGODB_URI || 'mongodb://localhost:27017/robots'
+mongoose.connect('mongodb://localhost:27017/robots')
+
+
 
 app.use(express.static('public'))
 
 app.engine('mustache', mustache());
 app.set('view engine', 'mustache')
-app.listen(3000, function(){
-  console.log("GOOD TO GO!!")
+
+const port = process.env.PORT || 3000
+app.listen(port, function(){
+  console.log("Now listening on port" + port)
 })
 
-// const router = require('./routes')
-
-// app.use('/', router)
-// app.use('/user/:id', router)
 app.get('/', function(req, res){
 
 MongoClient.connect(url, function(err, db) {
