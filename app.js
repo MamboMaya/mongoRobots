@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const MongoClient = require('mongodb').MongoClient
   , assert = require('assert')
-
+mongoose.Promise = require('bluebird')
 const url = 'mongodb://localhost:27017/robots'
 const express = require('express');
 const path = require('path');
