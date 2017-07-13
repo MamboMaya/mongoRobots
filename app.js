@@ -8,7 +8,8 @@ const path = require('path');
 const mustache = require('mustache-express');
 const app = express();
 const mongoURL = process.env.MONGODB_URI || 'mongodb://localhost:27017/robots'
-mongoose.connect('mongodb://localhost:27017/robots')
+mongoose.connect(mongoURL)
+// mongoose.connect('mongodb://localhost:27017/robots')
 
 
 
